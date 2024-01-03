@@ -1,40 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="card pl-5">
-    <h2>Course Details</h2>
+<div class="container">
+    <div class="card p-4">
+        <h2 class="mb-4 text-center">Course Details</h2>
 
-    <p><strong>Title:</strong> {{ $course->title }}</p>
-    <p><strong>Description:</strong> {{ $course->description }}</p>
+        <p><strong>Title:</strong> {{ $course->title }}</p>
+        <p><strong>Description:</strong> {{ $course->description }}</p>
+        <hr class="mt-4">
 
-    <p>
-        <a href="{{ route('courses.edit', $course->id) }}">Edit</a>
-        <form action="{{ route('courses.destroy', $course->id) }}" method="post">
-            @csrf
-            @method('DELETE')
-            <button type="submit">Delete</button>
-        </form>
-    </p>
-        <br/>
-    <h3>Videos</h3>
-    <div class="row">
-        @foreach($videos as $video)
-            {{$video->url}}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <div class="card-body">
-                        <video width="100%" height="200" controls>
-                            <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
+        <h3 class="mt-4">Course Video</h3>
+        <div class="row">
+            @forelse ($videos as $video)
+                <div class="col-md-12 mb-4">
+                    <div class="card card-0">
+                        <div class="card-body">
+                            <video width="100%" height="200" controls>
+                                <source src="{{ asset('storage/' . $video->video_path) }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
-    @if(empty($videos))
-                <p>No videos available for this course.</p>
-        @endif
+            @empty
+                <div class="col-md-12">
+                    <p>No videos available for this course.</p>
+                </div>
+            @endforelse
+        </div>
     </div>
-    </div>
-
+</div>
 @endsection
