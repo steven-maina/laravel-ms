@@ -1,8 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="card">
     <h2>User List</h2>
-
+    @if(Auth::user()->role =='admin')
+        <div class="flex-end">
+            <a href="{{route('users.create')}}" class="btn btn-primary">Add User</a>
+        </div>
+    @endif
     <table>
         <thead>
             <tr>
@@ -29,4 +34,12 @@
             @endforeach
         </tbody>
     </table>
+{{--        <div class="d-flex justify-content-left mt-4">--}}
+{{--            {{ $users->links() }}--}}
+{{--        </div>--}}
+        <div class="d-flex justify-content-center mt-4">
+            {{ $users->links('vendor.pagination.bootstrap-4') }}
+        </div>
+
+    </div>
 @endsection

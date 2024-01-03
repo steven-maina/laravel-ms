@@ -42,7 +42,7 @@
                        </div>
 
                        <div class="media-body text-right">
-                           <h3 class="mb-0">{{ $users->where('admin', 'admin')->count() }}</h3>
+                           <h3 class="mb-0">{{ $users->where('role', 'admin')->count() }}</h3>
                            <span class="text-uppercase font-size-xs">Total Administrators</span>
                        </div>
                    </div>
