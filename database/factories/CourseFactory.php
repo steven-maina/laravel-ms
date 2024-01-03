@@ -14,6 +14,7 @@ class CourseFactory extends Factory
         return [
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
+            'instructor' =>$this->faker->numberBetween(1,10),
         ];
     }
 }

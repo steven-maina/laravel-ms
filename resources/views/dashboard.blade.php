@@ -7,10 +7,12 @@
             <div class="card">
                 <div class="card-header">{{ __('Choose Role') }}</div>
                 <div class="card-body">
+                    <div id="error-message" style="color: orangered"></div>
                     <div class="mt-4">
                         <p>Choose your role below:</p>
                         <button type="button" id="teacherButton" class="btn btn-success">Teacher</button>
                         <button type="button" id="studentButton" class="btn btn-info">Student</button>
+                        <button type="button" id="adminButton" class="btn btn-primary">Admin</button>
                     </div>
                 </div>
             </div>
@@ -22,16 +24,32 @@
     document.addEventListener('DOMContentLoaded', function () {
         var teacherButton = document.getElementById('teacherButton');
         var studentButton = document.getElementById('studentButton');
-
+        var adminButton = document.getElementById('adminButton');
         // Event listener for Teacher button
         teacherButton.addEventListener('click', function () {
-            window.location.href = "{{ route('courses.index') }}"; // Redirect to teacher page
+            @if(Auth::user()->role=='teacher')
+                window.location.href = "{{ route('teacher') }}"; // Redirect to teacher page
+            @else
+            document.getElementById('error-message').innerText = 'Unauthorized access';
+            @endif
         });
 
         // Event listener for Student button
         studentButton.addEventListener('click', function () {
+            @if(Auth::user()->role=='student')
             window.location.href = "{{ route('enrollments.index') }}"; // Redirect to student page
         });
+        @else
+        document.getElementById('error-message').innerText = 'Unauthorized access';
+        @endif
+
+        adminButton.addEventListener('click', function () {
+            @if(Auth::user()->role=='admin')
+            window.location.href = "{{ route('users.index') }}"; // Redirect to student page
+        });
+        @else
+        document.getElementById('error-message').innerText = 'Unauthorized access';
+        @endif
     });
 </script>
 {{--<div class="container">--}}

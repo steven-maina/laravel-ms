@@ -2,9 +2,12 @@
 
 @section('content')
     <h2>Course List</h2>
-    <div class="flex-end">
-        <a href="{{route('courses.create')}}" class="btn btn-primary">Create Course</a>
-    </div>
+    @if($user->role !='student')
+        <div class="flex-end">
+            <a href="{{route('courses.create')}}" class="btn btn-primary">Create Course</a>
+        </div>
+    @endif
+
 <div class="card">
     <table>
         <thead>
