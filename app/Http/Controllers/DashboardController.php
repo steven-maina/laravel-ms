@@ -25,4 +25,37 @@ class DashboardController extends Controller
         // Check the user's role and customize the dashboard view
         return view('dashboard', compact('user','users','courses','enrollments' ,'tcourses'));
     }
+    public function student()
+    {
+        // Get the authenticated user
+        $user = auth()->user();
+        $users=User::all();
+        $courses=Course::all();
+        $tcourses=Course::where('instructor', $user->id);
+        $enrollments=Enrollment::where('user_id', $user->id)->get();
+        // Check the user's role and customize the dashboard view
+        return view('student', compact('user','users','courses','enrollments' ,'tcourses'));
+    }
+    public function teacher()
+    {
+        // Get the authenticated user
+        $user = auth()->user();
+        $users=User::all();
+        $courses=Course::all();
+        $tcourses=Course::where('instructor', $user->id);
+        $enrollments=Enrollment::where('user_id', $user->id)->get();
+        // Check the user's role and customize the dashboard view
+        return view('teacher', compact('user','users','courses','enrollments' ,'tcourses'));
+    }
+    public function admin()
+    {
+        // Get the authenticated user
+        $user = auth()->user();
+        $users=User::all();
+        $courses=Course::all();
+        $tcourses=Course::where('instructor', $user->id);
+        $enrollments=Enrollment::where('user_id', $user->id)->get();
+        // Check the user's role and customize the dashboard view
+        return view('admin', compact('user','users','courses','enrollments' ,'tcourses'));
+    }
 }
