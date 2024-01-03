@@ -31,10 +31,9 @@ class DashboardController extends Controller
         $user = auth()->user();
         $users=User::all();
         $courses=Course::all();
-        $tcourses=Course::where('instructor', $user->id);
         $enrollments=Enrollment::where('user_id', $user->id)->get();
         // Check the user's role and customize the dashboard view
-        return view('student', compact('user','users','courses','enrollments' ,'tcourses'));
+        return view('student', compact('user','users','courses','enrollments'));
     }
     public function teacher()
     {
@@ -43,9 +42,8 @@ class DashboardController extends Controller
         $users=User::all();
         $courses=Course::all();
         $tcourses=Course::where('instructor', $user->id);
-        $enrollments=Enrollment::where('user_id', $user->id)->get();
         // Check the user's role and customize the dashboard view
-        return view('teacher', compact('user','users','courses','enrollments' ,'tcourses'));
+        return view('teacher', compact('user','users','courses','tcourses'));
     }
     public function admin()
     {
